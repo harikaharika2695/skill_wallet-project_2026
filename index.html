@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Task Manager</title>
+</head>
+<body style="font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; padding: 20px;">
+
+    <h1>Hello world</h1>
+    <p>This is my first HTML page for epic</p>
+    <input type="'text" placeholder="Énter task name...">
+    <br>
+    <button style=""background-color: #007bff; color: white; padding: 10px 20px; border-radius: 5px; cursor:pointer;">submit Task</button>
+    <!-- Input & Button lined up neatly -->
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <input type="text" id="taskInput" placeholder="Enter task name..." style="padding: 8px; flex: 1; font-size: 16px;">
+        <button id="addBtn" style="background-color: #007bff; color: white; border: none; padding: 8px 15px; font-size: 16px; cursor: pointer;">Submit Task</button>
+    </div>
+
+    <!-- The list container -->
+    <ul id="taskList" style="padding-left: 20px; font-size: 18px; line-height: 2;"></ul>
+
+    <script>
+        const addBtn = document.getElementById('addBtn');
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+
+        addBtn.addEventListener('click', () => {
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                const li = document.createElement('li');
+                
+                // Add the task text and a delete button next to it
+                li.innerHTML = `
+                    <span>${taskText}</span>
+                    <button class="delete-btn" style="margin-left: 15px; background: #dc3545; color: white; border: none; padding: 2px 8px; cursor: pointer; font-size: 14px;">Delete</button>
+                `;
+                
+                // Make the delete button work when clicked
+                li.querySelector('.delete-btn').addEventListener('click', () => {
+                    li.remove();
+                });
+
+                taskList.appendChild(li);
+                taskInput.value = ''; 
+            }
+        });
+    </script>
+</body>
+</html>
