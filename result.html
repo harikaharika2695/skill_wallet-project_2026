@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; text-align: center; }
+        .container { max-width: 500px; margin: 50px auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #333; margin-bottom: 20px; }
+        .result-box { font-size: 24px; font-weight: bold; padding: 15px; border-radius: 4px; margin-bottom: 30px; display: inline-block; width: 80%; }
+        .approved { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .rejected { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        a { color: #2b579a; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Prediction Result</h1>
+    
+    <!-- Dynamically styles color based on the result sent by Flask -->
+    {% if prediction == 'Approved' %}
+        <div class="result-box approved">Application Approved</div>
+    {% else %}
+        <div class="result-box rejected">Application Rejected</div>
+    {% endif %}
+    
+    <br><br>
+    <a href="/">← Go Back to Form</a>
+</div>
+
+</body>
+</html>
