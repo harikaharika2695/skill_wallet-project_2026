@@ -1,3 +1,4 @@
+from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 
 # 1. Load all 3 files needed
@@ -38,4 +39,24 @@ print("Final shape:", final_df.shape)
 print("New target distribution:")
 print(final_df['CREDIT_TARGET'].value_counts(normalize=True))
 
-final_df.to_csv('final_dataset.csv', index=False)
+# --- Handling Categorical Values using LabelEncoder ---
+# fit_transform() identifies unique category names in each column and converts
+# them into integer values. Makes dataset suitable for ML algorithms.
+# Encoded values do not represent ranking. Works with Decision Tree, Random Forest, XGBoost.
+
+df = final_df.copy()
+
+categorical_cols = df.select_dtypes(include=['object']).columns
+print("7. Categorical columns to encode:", list(categorical_cols))
+
+for col in categorical_cols:
+    df[col] = df[col].fillna('Unknown') # LabelEncoder crashes on NaN
+    le = LabelEncoder()
+    df[col] = le.fit_transform(df[col].astype(str))
+    print(f"8. Encoded {col}: {len(le.classes_)} categories")
+
+print("9. Remaining object columns:", df.select_dtypes(include=['object']).columns.tolist())
+
+# Save the ML-ready dataset
+df.to_csv('final_dataset.csv', index=False)
+print("10. final_dataset.csv saved - ready for tree-based models")
